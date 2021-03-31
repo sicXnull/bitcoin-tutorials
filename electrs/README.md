@@ -2,7 +2,7 @@
 
 \`The server indexes the entire Bitcoin blockchain, and the resulting index enables fast queries for any given user wallet, allowing the user to keep real-time track of his balances and his transaction history using the Electrum wallet. Since it runs on the user's own machine, there is no need for the wallet to communicate with external Electrum servers, thus preserving the privacy of the user's addresses and balances.\` - [https:/github.com/romanz/electrs](https:/github.com/romanz/electrs)
 
-![electrum](/electrs/images/electrum.png)
+![electrum](./images/electrum.png)
 
 Requires 50 Gb diskpace after compactiing and ~100 GB during indexing (Nov 2019).
 
@@ -31,7 +31,7 @@ Electrs will only start serving on the port 50001 (and 50002 via Nginx) when it 
     `$ sudo systemctl status electrs`  
 
     Example output when running after indexing has finished:
-    ![electrs status](/electrs/images/electrs_status.png)
+    ![electrs status](./images/electrs_status.png)
 
 * #### Check if it is serving on the port 50001 (will appear only after indexing is complete)  
     `$ sudo -u electrs lsof -i`
@@ -166,7 +166,9 @@ If you run into problems:
     `"C:\Program Files (x86)\Electrum\electrum-3.3.8.exe" --oneserver --server 192.168.X.X:50002:s`
     * On Linux use the command:  
     `$ electrum --oneserver --server RASPIBLITZ_IP:50001:t`
-* if after a reinstall Electrum would not connect try deleting the relevant certificate from the .electrum/certs directory on your desktop.
+* if after a reinstall Electrum would not connect delete the relevant old certificate on the desktop from:
+    * Linux: ~/.electrum/certs/
+    * Windows: User/appdata/roaming/electrum/certs/
 * reinstall the mobile Electrum app
 * try to run the commands manually one-by-one, spot which is causing the problem and copy the output
 * open an issue [here](https://github.com/openoms/bitcoin-tutorials/issues) with the details and I will be happy to help to solve it  
