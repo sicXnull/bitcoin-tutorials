@@ -67,10 +67,10 @@ echo ""
 
 # download dotnet-sdk
 sudo apt-get -y install libunwind8 gettext libssl1.0
-sudo -u btcpay wget https://download.visualstudio.microsoft.com/download/pr/94409a9a-41e3-4df9-83bc-9e23ed96abaf/2b75460d9a8eef8361c01bafc1783fab/dotnet-sdk-2.1.607-linux-arm.tar.gz
+sudo -u btcpay wget https://download.visualstudio.microsoft.com/download/pr/e5e70860-a6d4-48cf-b0d1-eeba32657d80/2da3c605aaa65c7e4ac2ad0507a2e429/dotnet-sdk-3.1.300-linux-arm64.tar.gz
 # check binary is was not manipulated (checksum test)
-dotnetName="dotnet-sdk-2.1.607-linux-arm.tar.gz"
-binaryChecksum="2cd8fa250e6a0e81faf409e7dc4f6d581117f565d58cff48b31f457e7cafc7f3cfe0de0df2b1c5d035733879750eb2af22fcc950720a7a7192e4221318052838"
+dotnetName="dotnet-sdk-3.1.300-linux-arm.tar.gz"
+binaryChecksum="b1d806dd719e61ae27297515d26e6ef12e615da131db4fd1c29b2acc4d6a68a6b0e4ce94ead4f8f737c203328d596422068c78495eba331a5759f595ed9ed149"
 actualChecksum=$(sha512sum /home/btcpay/${dotnetName} | cut -d " " -f1)
 if [ "${actualChecksum}" != "${binaryChecksum}" ]; then
   echo "!!! FAIL !!! Downloaded ${dotnetName} not matching SHA512 checksum: ${binaryChecksum}"
@@ -78,10 +78,10 @@ if [ "${actualChecksum}" != "${binaryChecksum}" ]; then
 fi
 
 # download aspnetcore-runtime
-sudo -u btcpay wget https://download.visualstudio.microsoft.com/download/pr/9c563df7-736b-49ce-bd17-e739f3765541/e93dd1eff909e59a7ba72784a64dc031/aspnetcore-runtime-2.1.14-linux-arm.tar.gz
+sudo -u btcpay wget https://download.visualstudio.microsoft.com/download/pr/06f9feeb-cd19-49e9-a5cd-a230e1d8c52f/a232fbb4a6e6a90bbe624225e180308a/aspnetcore-runtime-3.1.4-linux-arm.tar.gz
 # check binary is was not manipulated (checksum test)
-aspnetcoreName="aspnetcore-runtime-2.1.14-linux-arm.tar.gz"
-binaryChecksum="f4500187bf135254a03b5eb4105b8ce20f71d71e0f08c2c2ec914920f80435b7b36351c3f9c15504d0b1c2187b904c8283db67a2b60ebff374b058641153aaac"
+aspnetcoreName="aspnetcore-runtime-3.1.4-linux-arm.tar.gz"
+binaryChecksum="58fe16baf370cebda96b93735be9bc57cf9a846b56ecbdc3c745c83399ad5b59518251996b75ac959ee3a8eb438a92e2ea3d088af4f0631caed3c86006d4ed2d"
 actualChecksum=$(sha512sum /home/btcpay/${aspnetcoreName} | cut -d " " -f1)
 if [ "${actualChecksum}" != "${binaryChecksum}" ]; then
   echo "!!! FAIL !!! Downloaded ${aspnetcoreName} not matching SHA512 checksum: ${binaryChecksum}"
@@ -110,8 +110,8 @@ cd NBXplorer
 # checkout from last known to work commit:
 # https://github.com/dgarage/NBXplorer/commit/6069d0a06aae467cab41ea509450222d45fb9c04
 # check https://github.com/dgarage/NBXplorer/commits/master
-sudo -u btcpay git checkout 6069d0a06aae467cab41ea509450222d45fb9c04
-sudo -u btcpay ./build.sh
+sudo -u btcpay git reset --hard $NBXplorerVersion
+sudo -u btcpay /home/btcpay/dotnet/dotnet build -c Release NBXplorer/NBXplorer.csproj
 
 echo "
 [Unit]
